@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Lamp Controller</title>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
         #lamp {
             width: 100px;
             height: 100px;
@@ -12,6 +21,28 @@
             border-radius: 50%;
             margin: 20px auto;
             transition: background-color 0.5s;
+            position: relative;
+        }
+        #lamp::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 50px;
+            background-color: #8b4513;
+        }
+        #lamp::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #8b4513;
+            border-radius: 50%;
         }
         #light-level {
             font-size: 24px;
@@ -21,7 +52,7 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Smart Lamp Controller</h1>
+    <h1>Smart Lamp Controller</h1>
     <div id="lamp"></div>
     <div id="light-level">Light Level: 0</div>
 
@@ -43,7 +74,7 @@
                     updateLampState(data.state);
                     updateLightLevel(data.light_level);
                 });
-        }, 1000);
+        }, 10000);
     </script>
 </body>
 </html>
