@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Lamp Controller</title>
+    <style>
+        #lamp {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+            border-radius: 50%;
+            margin: 20px auto;
+            transition: background-color 0.5s;
+        }
+        #light-level {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Smart Lamp Controller</h1>
+    <div id="lamp"></div>
+    <div id="light-level">Light Level: 0</div>
+
+    <script>
+        function updateLampState(state) {
+            const lamp = document.getElementById('lamp');
+            lamp.style.backgroundColor = state ? 'yellow' : 'gray';
+        }
+
+        function updateLightLevel(level) {
+            const lightLevel = document.getElementById('light-level');
+            lightLevel.textContent = `Light Level: ${level}`;
+        }
+
+        setInterval(() => {
+            fetch('/control')
+                .then(response => response.json())
+                .then(data => {
+                    updateLampState(data.state);
+                    updateLightLevel(data.light_level);
+                });
+        }, 1000);
+    </script>
+</body>
+</html>
